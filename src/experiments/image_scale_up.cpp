@@ -1,14 +1,7 @@
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
 using namespace cv;
-using namespace std;
 
 const char kWindowTitle[] = "2x Scale Up";
 const char kImage[] = "images/chugach-mtns.jpg";

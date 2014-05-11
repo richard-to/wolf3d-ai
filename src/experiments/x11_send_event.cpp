@@ -1,7 +1,3 @@
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "opencv2/imgproc/imgproc.hpp"
@@ -12,7 +8,6 @@
 #include <X11/keysym.h>
 
 using namespace cv;
-using namespace std;
 
 const char kWindowDOSBox[] = "DOSBox";
 const char kWindowTitle[] = "Wolf3d Screenshot";
