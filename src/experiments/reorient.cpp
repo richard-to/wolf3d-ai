@@ -1,43 +1,41 @@
 #include <iostream>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "wolf3d_ai_util.h"
-
-#define WINDOW_NAME "Hough Door"
-#define DOOR_IMAGE "images/scene1.png"
-
-#define CEILING 56
-#define FLOOR 113
-
 using namespace cv;
 using namespace std;
 
+const char kWindowName[] = "Hough Door";
+const char kDoorImage[] = "images/scene1.png";
+
+const int kGameHBegin = 10;
+const int kGameHEnd = 89;
+const int kGameWBegin = 15;
+const int kGameWEnd = 18;
+
+const int kCeil = 56;
+const int kFloor = 113;
+
 int main(int argc, char *argv[])
 {
-    namedWindow(WINDOW_NAME, WINDOW_AUTOSIZE);
+    namedWindow(kWindowName, WINDOW_AUTOSIZE);
 
-    Mat src = imread(DOOR_IMAGE);
+    Mat src = imread(kDoorImage);
     Mat dst;
 
     Mat gray;
     cvtColor(src, gray, COLOR_BGR2GRAY);    
     Mat out = Mat::zeros(src.rows, src.cols, CV_8U);    
 
-    int h = gray.rows - GAME_H_END;
-    int w = gray.cols - GAME_W_END;
+    int h = gray.rows - kGameHEnd;
+    int w = gray.cols - kGameWEnd;
     cout << h << " " << w << endl;
-    for (int i = GAME_H_BEGIN; i < h; ++i) {
-        for (int j = GAME_W_BEGIN; j < w; ++j) {
-            if (gray.at<uchar>(i, j) == CEILING) {
+    for (int i = kGameHBegin; i < h; ++i) {
+        for (int j = kGameWBegin; j < w; ++j) {
+            if (gray.at<uchar>(i, j) == kCeil) {
                 out.at<uchar>(i, j) = 0;           
-            } else if (gray.at<uchar>(i, j) == FLOOR)  {
+            } else if (gray.at<uchar>(i, j) == kFloor)  {
                 out.at<uchar>(i, j) = 0;
             } else {
                 out.at<uchar>(i, j) = 255;
@@ -54,9 +52,9 @@ int main(int argc, char *argv[])
         line(src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
     }
 
-    imshow(WINDOW_NAME, src);
+    imshow(kWindowName, src);
     waitKey(0);
 
-    imshow(WINDOW_NAME, dst);
+    imshow(kWindowName, dst);
     waitKey(0);
 }

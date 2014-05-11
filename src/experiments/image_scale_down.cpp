@@ -7,11 +7,11 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-const char kWindowTitle[] = "2x Scale Down";
-const char kImage[] = "images/chugach-mtns.jpg";
-
 using namespace cv;
 using namespace std;
+
+const char kWindowTitle[] = "2x Scale Down";
+const char kImage[] = "images/chugach-mtns.jpg";
 
 int main(int argc, char *argv[])
 {

@@ -18,7 +18,7 @@ const double kDoorDimDiffRatioMin = 0.50;
 const Scalar kComBoxColor = Scalar(0, 255, 255);
 const Scalar kComLineColor = Scalar(0, 255, 255);
 
-void hsv_threshold_enemies(Mat frame, Mat &out)
+void wolf3d::hsv_threshold_enemies(Mat frame, Mat &out)
 {
     Vec3b hsv;    
     Mat img = Mat::zeros(frame.rows, frame.cols, CV_8UC3);
@@ -40,7 +40,7 @@ void hsv_threshold_enemies(Mat frame, Mat &out)
     }
 }
 
-bool com_enemy(Mat labelled, Mat &out, int label, wolf3d::COM_Meta *meta)
+bool wolf3d::com_enemies(Mat labelled, Mat &out, int label, wolf3d::COM_Meta *meta)
 {
     int h = labelled.rows;
     int w = labelled.cols;

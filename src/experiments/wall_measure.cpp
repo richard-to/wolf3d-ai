@@ -1,45 +1,45 @@
 #include <iostream>
-#include <limits.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <vector>
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "wolf3d_ai_util.h"
-
-#define WINDOW_NAME "Segmented Door"
-#define DOOR_IMAGE "images/scene12.png"
-
-#define CEILING 56
-#define FLOOR 113
+#include "core/localize.h"
 
 using namespace cv;
 using namespace std;
+using namespace wolf3d;
 
-#include "wolf3d_ai_util.h"
+const char kWindowName[] = "Segmented Door";
+const char kDoorImage[] = "images/scene12.png";
+
+const int kCeil = 56;
+const int kFloor = 113;
+
+const int kGameHBegin = 10;
+const int kGameHEnd = 89;
+const int kGameWBegin = 15;
+const int kGameWEnd = 18;
+
+const Scalar kComLineColor = Scalar(0, 255, 255);
 
 int main(int argc, char *argv[])
 {
-    namedWindow(WINDOW_NAME, WINDOW_AUTOSIZE);
+    namedWindow(kWindowName, WINDOW_AUTOSIZE);
 
-    Mat src = imread(DOOR_IMAGE);
+    Mat src = imread(kDoorImage[] =);
     Mat gray;
     cvtColor(src, gray, COLOR_BGR2GRAY);    
     Mat out = Mat::zeros(src.rows, src.cols, CV_8U);    
 
-    int h = gray.rows - GAME_H_END;
-    int w = gray.cols - GAME_W_END;
+    int h = gray.rows - kGameHEnd;
+    int w = gray.cols - kGameWEnd;
 
-    for (int i = GAME_H_BEGIN; i < h; ++i) {
-        for (int j = GAME_W_BEGIN; j < w; ++j) {
-            if (gray.at<uchar>(i, j) == CEILING) {
+    for (int i = kGameHBegin; i < h; ++i) {
+        for (int j = kGameWBegin; j < w; ++j) {
+            if (gray.at<uchar>(i, j) == kCeil) {
                 out.at<uchar>(i, j) = 0;           
-            } else if (gray.at<uchar>(i, j) == FLOOR)  {
+            } else if (gray.at<uchar>(i, j) == kFloor)  {
                 out.at<uchar>(i, j) = 0;
             } else {
                 out.at<uchar>(i, j) = 255;
@@ -54,10 +54,10 @@ int main(int argc, char *argv[])
     cout << gray.rows/2 << endl;
     bool found_top = false;
     bool found_bottom = false;
-    int ytop = (h - GAME_H_BEGIN)/2 + GAME_H_BEGIN + 1;
-    int ybottom = (h - GAME_H_BEGIN)/2 + GAME_H_BEGIN  - 1;
+    int ytop = (h - kGameHBegin) / 2 + kGameHBegin + 1;
+    int ybottom = (h - kGameHBegin) / 2 + kGameHBegin  - 1;
     while (found_top == false || found_bottom == false) {
-        if (ytop == GAME_H_BEGIN || dilated.at<uchar>(ytop, xbar) == 0) {
+        if (ytop == kGameHBegin || dilated.at<uchar>(ytop, xbar) == 0) {
             found_top = true;
             cout << "TOP: " << ytop << endl;
         } else if (found_top == false) {
@@ -76,20 +76,20 @@ int main(int argc, char *argv[])
     line(src,
         Point(xbar, ytop),
         Point(xbar, ybottom),
-        COM_LINE_COLOR,
+        kComLineColor,
         1);
 
 
-    imshow(WINDOW_NAME, src);
+    imshow(kWindowName, src);
     waitKey(0);
 
-    imshow(WINDOW_NAME, gray);
+    imshow(kWindowName, gray);
     waitKey(0); 
 
-    imshow(WINDOW_NAME, out);
+    imshow(kWindowName, out);
     waitKey(0);
 
-    imshow(WINDOW_NAME, dilated);
+    imshow(kWindowName, dilated);
     waitKey(0);
 
 }
